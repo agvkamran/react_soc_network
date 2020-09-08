@@ -1,0 +1,10 @@
+.app-wrapper {
+  width: 1200px;
+  margin: 0 auto;
+ }
+.optimaize {
+  display: flex;
+}
+.app-wrapper-content {
+  background-color: cornflowerblue;
+}

@@ -1,0 +1,10 @@
+.header {
+    background-color: aqua;
+    width: 1100px;
+    height: 100px ;
+  }
+
+  .header img{
+    width: 150px;
+    height: 80px;
+  }
