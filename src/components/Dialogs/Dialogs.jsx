@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message'
+import {addMessageActionCreator, updateNewPostMessageActionCreator } from '../../redux/dialogs-reducer';
 
 const Dialogs = (props) => {
 
@@ -20,30 +21,30 @@ const Dialogs = (props) => {
     //     props.updateNewMessageText();
     // };
 
-
+    //------------------------------------------------- DIALOGS PAGE--------------------------------------------------
     let newDialogElement = React.createRef();
     let addDialog = () => {
         let textDialog = newDialogElement.current.value;
         props.addDialog(textDialog);
         newDialogElement.current.value = '';
-        }
-
-
-        
+    }
+    
+    //------------------------------------------------- MESSAGES PAGE--------------------------------------------------
     let newMessageElement = React.createRef();
+    
     let addMessage = () => {
-        props.addMessage();
-        props.updateNewPostMessage('');
+        props.dispatch(addMessageActionCreator());   //props.addMessage
+        // props.dispatch('');          //updateNewPostMessage
     }
 
     let onMessageChange = () => {
         let text = newMessageElement.current.value;
-        props.updateNewPostMessage(text);
-
-    }
+        let action = updateNewPostMessageActionCreator(text);
+        props.dispatch(action);
+        //updateNewPostMessage
+    } 
 
     return (
-
         <div className={s.dialogs}>
            <div className={s.dialogsItems}>
                {dialogsElements}

@@ -1,3 +1,9 @@
+// const ADD_POST = 'ADD-POST';
+// const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+import profileReducer from './profile-reducer'
+import dialogsReducer from './dialogs-reducer'
+
+
 let store = {
     _state: {
         profilePage: {
@@ -28,51 +34,150 @@ let store = {
         }
     },
 
-    getState(){
+    _callSubscriber() {
+        console.log('State changed')
+    },
+    
+    // addMessage() {
+    //     let newMessage = {
+    //         id: 6,
+    //         message: this._state.messagesPage.newMessageText
+    //     }
+    //     this._state.messagesPage.messages.push(newMessage);
+    //     this._callSubscriber(this._state);
+    //     this._state.messagesPage.newMessageText = '';
+    // },
+    
+    // updateNewPostMessage (newM) {
+    //     this._state.messagesPage.newMessageText = newM;
+    //     this._callSubscriber(this._state);
+    // },
+
+    addDialog (postDialog) {
+        let newDialog = {
+            id: 5,
+            name: postDialog
+        }
+        this._state.messagesPage.dialogs.push(newDialog);
+        this._callSubscriber(this._state);
+    },
+
+    getState() {
         return this._state;
     },
-    subscribe(observer){
+
+    subscribe(observer) {
         this._callSubscriber = observer;
     },
 
-    _callSubscriber () {
-        console.log('State changed')
-    },
-    // методы которые внизу перешли в dispatch их можно удалить, но я их закомментировал еще
-    // addPost () {
-    //     debugger; 
-    //     let newPost = {
-    //         id: 5,
-    //         message: this._state.profilePage.newPostText,
-    //         likesCount: 123
-    //     }
-    //     this._state.profilePage.posts.push(newPost);
-    //     this._state.profilePage.newPostText = '';
-    //     this._callSubscriber(this._state);
-    // },
-    // updateNewPostText(newText){
-    //     this._state.profilePage.newPostText = newText;
-    //     this._callSubscriber(this._state);
-    // },
+    dispatch(action) {
+        // console.log(this);
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.messagesPage = dialogsReducer(this._state.messagesPage, action);
+        this._callSubscriber(this._state);
+        // if (action.type === ADD_POST) {
+        //     let newPost = {
+        //         id: 5,
+        //         message: this._state.profilePage.newPostText,
+        //         likesCount: 123
+        //     }
+        //     this._state.profilePage.posts.push(newPost);
+        //     this._state.profilePage.newPostText = '';
+        //     this._callSubscriber(this._state);
+        // }
+        // else if (action.type === UPDATE_NEW_POST_TEXT) {
+        //     this._state.profilePage.newPostText = action.newText;
+        //     this._callSubscriber(this._state);
+        // }
 
-    dispatch(action){
-        if(action.type === 'ADD-POST'){
-            let newPost = {
-                id: 5,
-                message: this._state.profilePage.newPostText,
-                likesCount: 123
-            }
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber(this._state);
-        }
-        else if(action.type === 'UPDATE-NEW-POST-TEXT'){
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state);
-        }
+        
+
+        // if(action.type === ADD_MESSAGE){
+        //     let newMessage = {
+        //         id: 6,
+        //         message: this._state.messagesPage.newMessageText
+        //     }
+        //     this._state.messagesPage.messages.push(newMessage);
+        //     this._callSubscriber(this._state);
+        //     this._state.messagesPage.newMessageText = '';
+        // }
+        // else if(action.type === UPDATE_NEW_POST_MESSAGE){
+        //     this._state.messagesPage.newMessageText = action.newM;
+        //     this._callSubscriber(this._state);
+        // }
     }
 }
 
+//------------------------------ PROFILEPAGE. POST    
+// export const addPostActionCreator = () => {
+//     return {
+//       type: ADD_POST
+//     }
+//   }
+
+// export const updateNewPostTextActionCreator = (text) => {
+//     return {
+//       type: UPDATE_NEW_POST_TEXT, newText: text
+//     }
+//   }
+
+
+//------------------------------- MESSAGESPAGE. MESSAGE
+// export const addMessageActionCreator = () => {
+//     return {
+//         type: ADD_MESSAGE
+//     }
+// }
+
+// export const updateNewPostMessageActionCreator = (text) => {
+//     return {
+//         type: 'UPDATE-NEW-POST-MESSAGE', newM: text
+//     }
+// }
+
+
+
+
+
+// Если не засовывать функции в store, то все работает! 1_!!!
+
+// export const addMessage = () => {
+//     console.log(store);
+//     let newMessage = {
+//         id: 6,
+//         message: store._state.messagesPage.newMessageText,
+//     }
+//     store._state.messagesPage.messages.push(newMessage);
+//     store._callSubscriber(store._state);
+// }
+
+// export const updateNewPostMessage = (newM) => {
+//     store._state.messagesPage.newMessageText = newM;
+//     store._callSubscriber(store._state);
+// }
+
+
+
+
+
+
+
+
+// СДЕЛАЛ ИЗМЕНЕНИЯ НА ПРИВАТНЫЕ И RERENDERENTIREDTREE ПОМЕНЯЛ НА CALLSUBSCRIBER!
+
+// export let addMessage = () => {
+//     let newMessage = {
+//         id: 6,
+//         message: this._state.messagesPage.newMessageText,
+//     }
+//     this._state.messagesPage.messages.push(newMessage);
+//     this._callSubscriber(this._state);
+// }
+
+// export let updateNewPostMessage = (newM) => {
+//     this._state.messagesPage.newMessageText = newM;
+//     this._callSubscriber(this._state);
+// }
 
 // export let addMessage = (postMessage) => {
 //     let newMessage = {
@@ -85,21 +190,6 @@ let store = {
 
 // export let updateNewMessageText = (newText) => {
 //     state.messagesPage.newMessageText = newText;
-//     rerenderEntireTree(state);
-// }
-
-
-// export let addMessage = () => {
-//     let newMessage = {
-//         id: 6,
-//         message: state.messagesPage.newMessageText
-//     }
-//     state.messagesPage.messages.push(newMessage);
-//     rerenderEntireTree(state);
-// }
-
-// export let updateNewPostMessage = (newM) => {
-//     state.messagesPage.newMessageText =newM;
 //     rerenderEntireTree(state);
 // }
 
@@ -126,3 +216,19 @@ export default store;
 
 
 
+    // методы которые закомментированы перешли в dispatch их можно удалить
+    // addPost () {
+    //     debugger; 
+    //     let newPost = {
+    //         id: 5,
+    //         message: this._state.profilePage.newPostText,
+    //         likesCount: 123
+    //     }
+    //     this._state.profilePage.posts.push(newPost);
+    //     this._state.profilePage.newPostText = '';
+    //     this._callSubscriber(this._state);
+    // },
+    // updateNewPostText(newText){
+    //     this._state.profilePage.newPostText = newText;
+    //     this._callSubscriber(this._state);
+    // },
