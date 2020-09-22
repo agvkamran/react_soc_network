@@ -23,11 +23,11 @@ const Dialogs = (props) => {
 
     //------------------------------------------------- DIALOGS PAGE--------------------------------------------------
     let newDialogElement = React.createRef();
-    let addDialog = () => {
-        let textDialog = newDialogElement.current.value;
-        props.addDialog(textDialog);
-        newDialogElement.current.value = '';
-    }
+    // let addDialog = () => {
+    //     let textDialog = newDialogElement.current.value;
+    //     props.addDialog(textDialog);
+    //     newDialogElement.current.value = '';
+    // }
     
     //------------------------------------------------- MESSAGES PAGE--------------------------------------------------
     let newMessageElement = React.createRef();
@@ -48,8 +48,8 @@ const Dialogs = (props) => {
         <div className={s.dialogs}>
            <div className={s.dialogsItems}>
                {dialogsElements}
-               <textarea ref={newDialogElement}></textarea>
-               <button onClick={addDialog}>button</button>
+               {/* <textarea ref={newDialogElement}></textarea> */}
+               {/* <button onClick={addDialog}>button</button> */}
            </div>
            <div className={s.messages}>
                {messagesElements}

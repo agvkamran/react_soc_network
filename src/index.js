@@ -11,8 +11,7 @@ import App from './App';
 let rerenderEntireTree = (state) => {
 ReactDOM.render(
   <React.StrictMode>
-    <App state={state} dispatch={store.dispatch.bind(store)} 
-     addDialog={store.addDialog.bind(store)} />
+    <App state={state} dispatch={store.dispatch.bind(store)}/>
 
      
      {/* addMessage={store.addMessage.bind(store)} updateNewPostMessage={store.updateNewPostMessage.bind(store)} 2_!!! */}
@@ -24,8 +23,13 @@ ReactDOM.render(
 }
 
 
-rerenderEntireTree(store.getState());
-store.subscribe(rerenderEntireTree);
+let currentState = store.getState();
+rerenderEntireTree(currentState);
+// store.subscribe(rerenderEntireTree);
+store.subscribe(() => {
+  let state = store.getState();
+  rerenderEntireTree(state);
+});
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
