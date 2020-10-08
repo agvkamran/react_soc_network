@@ -7,21 +7,22 @@ import Dialogs from './components/Dialogs/Dialogs'
 import { BrowserRouter, Route } from 'react-router-dom';
 
 const App = (props) => {
-
   return (
-    <BrowserRouter>
     <div className='app-wrapper'>
       <Header />
       <Navbar />
       <div className='app-wrapper-content'>
-        <Route path='/dialogs' render={ () => <Dialogs state={props.state.messagesPage} addMessage={props.addMessage} 
-            addDialog={props.addDialog} updateNewMessageText={props.updateNewMessageText} asd
-            updateNewPostMessage={props.updateNewPostMessage} /> } />
+        <Route path='/dialogs' render={ () => <Dialogs store={props.store} /> } />
         <Route path='/profile' render={ () => <Profile profilePage={props.state.profilePage} dispatch={props.dispatch} /> } />
       </div>
     </div>
-    </BrowserRouter>
   );
 }
 
 export default App;
+
+
+
+// addMessage={props.addMessage} 
+//             addDialog={props.addDialog} updateNewMessageText={props.updateNewMessageText}
+//             updateNewPostMessage={props.updateNewPostMessage}
