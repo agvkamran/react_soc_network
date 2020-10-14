@@ -4,11 +4,13 @@ import * as axios from 'axios';
 import userPhoto from '../../assets/images/user.png'
 
 let Users = (props) => {
+    let getUsers = () => {
     if(props.users.length === 0){
         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
             // debugger;
             props.setUsers(response.data.items)
         })
+    }
     // props.setUsers( 
     //     [
     //     {id: 1, photoUrl: 'https://www.google.com/search?q=user+photo&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiz34-7p7HsAhWlx4UKHfCRAp4Q_AUoAXoECA0QAw#imgrc=0WCMHJOqQ0-MmM', followed: false, fullName: 'John', status: 'Busy', location: {city: 'Antananarivo', country: 'Madagascar'}},
@@ -18,6 +20,7 @@ let Users = (props) => {
 }
 
     return <div>
+        <button onClick={getUsers}>Get users</button>
         {
             props.users.map(u => <div key={u.id}>
                 <span>
