@@ -4,7 +4,14 @@
     height: 100px ;
   }
 
-  .header img{
+.header img{
     width: 150px;
     height: 80px;
-  }
+}
+
+.loginBlock {
+  float: right;
+}
+.loginBlock a {
+  color: blue;
+}
